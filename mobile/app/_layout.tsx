@@ -1,7 +1,7 @@
 import "../global.css";
 
 import React, { useEffect } from "react";
-import { View, ActivityIndicator } from "react-native";
+import { View, ActivityIndicator, Platform } from "react-native";
 import { Stack } from "expo-router";
 import * as SplashScreen from "expo-splash-screen";
 import { StatusBar } from "expo-status-bar";
@@ -47,20 +47,24 @@ export default function RootLayout() {
   }
 
   return (
-    <QueryClientProvider client={queryClient}>
-      <StatusBar style="light" />
-      <Stack
-        screenOptions={{
-          headerShown: false,
-          contentStyle: { backgroundColor: "#FAF6F1" },
-          animation: "fade",
-        }}
-      >
-        <Stack.Screen name="index" />
-        <Stack.Screen name="onboarding" />
-        <Stack.Screen name="(auth)" />
-        <Stack.Screen name="(tabs)" />
-      </Stack>
-    </QueryClientProvider>
+    <View style={Platform.OS === 'web' ? { flex: 1, alignItems: 'center', backgroundColor: '#e5e7eb' } : { flex: 1 }}>
+      <View style={Platform.OS === 'web' ? { flex: 1, width: '100%', maxWidth: 430, backgroundColor: '#FAF6F1', overflow: 'hidden', boxShadow: '0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)' } : { flex: 1 }}>
+        <QueryClientProvider client={queryClient}>
+          <StatusBar style="light" />
+          <Stack
+            screenOptions={{
+              headerShown: false,
+              contentStyle: { backgroundColor: "#FAF6F1" },
+              animation: "fade",
+            }}
+          >
+            <Stack.Screen name="index" />
+            <Stack.Screen name="onboarding" />
+            <Stack.Screen name="(auth)" />
+            <Stack.Screen name="(tabs)" />
+          </Stack>
+        </QueryClientProvider>
+      </View>
+    </View>
   );
 }
