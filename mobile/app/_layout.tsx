@@ -46,21 +46,28 @@ export default function RootLayout() {
     );
   }
 
+  const webOuterStyle: any = { height: '100vh', width: '100vw', alignItems: 'center', backgroundColor: '#e5e7eb' };
+  const webInnerStyle: any = { flex: 1, height: '100vh', width: '100%', maxWidth: 430, backgroundColor: '#FAF6F1', overflow: 'hidden', borderWidth: 1, borderColor: '#ddd' };
+
   return (
-    <QueryClientProvider client={queryClient}>
-      <StatusBar style="light" />
-      <Stack
-        screenOptions={{
-          headerShown: false,
-          contentStyle: { backgroundColor: "#FAF6F1" },
-          animation: "fade",
-        }}
-      >
-        <Stack.Screen name="index" />
-        <Stack.Screen name="onboarding" />
-        <Stack.Screen name="(auth)" />
-        <Stack.Screen name="(tabs)" />
-      </Stack>
-    </QueryClientProvider>
+    <View style={Platform.OS === 'web' ? webOuterStyle : { flex: 1 }}>
+      <View style={Platform.OS === 'web' ? webInnerStyle : { flex: 1 }}>
+        <QueryClientProvider client={queryClient}>
+          <StatusBar style="light" />
+          <Stack
+            screenOptions={{
+              headerShown: false,
+              contentStyle: { backgroundColor: "#FAF6F1" },
+              animation: "fade",
+            }}
+          >
+            <Stack.Screen name="index" />
+            <Stack.Screen name="onboarding" />
+            <Stack.Screen name="(auth)" />
+            <Stack.Screen name="(tabs)" />
+          </Stack>
+        </QueryClientProvider>
+      </View>
+    </View>
   );
 }
