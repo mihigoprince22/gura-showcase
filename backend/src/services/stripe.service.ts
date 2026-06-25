@@ -2,12 +2,12 @@ import Stripe from 'stripe';
 import { config } from '../config/env.js';
 
 export class StripeService {
-  private isMock = !config.stripe?.secretKey;
+  private isMock = !config.STRIPE_SECRET_KEY;
   private stripe: Stripe | null = null;
 
   constructor() {
-    if (!this.isMock && config.stripe?.secretKey) {
-      this.stripe = new Stripe(config.stripe.secretKey, {
+    if (!this.isMock && config.STRIPE_SECRET_KEY) {
+      this.stripe = new Stripe(config.STRIPE_SECRET_KEY, {
         apiVersion: '2025-02-24.acacia',
       });
     }

@@ -22,7 +22,7 @@ export async function fraudScoringMiddleware(request: FastifyRequest, reply: Fas
     const user = await queryOne(sqlUser, [userId]);
     
     if (user) {
-      const accountAgeDays = (Date.now() - new Date(user.created_at).getTime()) / (1000 * 60 * 60 * 24);
+      const accountAgeDays = (Date.now() - new Date(user.created_at as string | number | Date).getTime()) / (1000 * 60 * 60 * 24);
       
       // Penalty for very new accounts making high-value actions
       if (accountAgeDays < 7) fraudScore += 20;

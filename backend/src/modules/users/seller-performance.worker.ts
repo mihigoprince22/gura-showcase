@@ -1,4 +1,4 @@
-import { query, queryOne } from '../../../config/database.js';
+import { query, queryOne } from '../../config/database.js';
 
 export class SellerPerformanceWorker {
   private interval: NodeJS.Timeout | null = null;
@@ -30,7 +30,7 @@ export class SellerPerformanceWorker {
       const sellers = await query(sqlSellers);
 
       for (const seller of sellers.rows) {
-        await this.evaluateSeller(seller.id);
+        await this.evaluateSeller(seller.id as string);
       }
       console.log(`[SellerPerformanceWorker] Completed evaluation for ${sellers.rows.length} sellers.`);
     } catch (err) {

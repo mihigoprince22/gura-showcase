@@ -1,4 +1,4 @@
-import Expo, { ExpoPushMessage } from 'expo-server-sdk';
+import { Expo, ExpoPushMessage } from 'expo-server-sdk';
 import { config } from '../../config/env.js';
 
 export class NotificationsService {

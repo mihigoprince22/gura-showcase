@@ -8,12 +8,12 @@ export default async function paymentsRoutes(fastify: FastifyInstance): Promise<
   fastify.post('/webhook', { config: { rawBody: true } }, async (request, reply) => {
     const sig = request.headers['stripe-signature'];
     
-    if (!sig || !config.stripe?.webhookSecret || !config.stripe?.secretKey) {
+    if (!sig || !config.STRIPE_WEBHOOK_SECRET || !config.STRIPE_SECRET_KEY) {
       console.warn('[MOCK WEBHOOK] Received webhook request but Stripe is not configured');
       return reply.status(200).send({ received: true });
     }
 
-    const stripe = new Stripe(config.stripe.secretKey, { apiVersion: '2025-02-24.acacia' });
+    const stripe = new Stripe(config.STRIPE_SECRET_KEY, { apiVersion: '2025-02-24.acacia' });
     let event: Stripe.Event;
 
     try {
@@ -25,7 +25,7 @@ export default async function paymentsRoutes(fastify: FastifyInstance): Promise<
       event = stripe.webhooks.constructEvent(
         payloadString, 
         sig, 
-        config.stripe.webhookSecret
+        config.STRIPE_WEBHOOK_SECRET
       );
     } catch (err: any) {
       console.error(`Webhook Error: ${err.message}`);
