@@ -1,0 +1,36 @@
+{
+  "expo": {
+    "name": "Gura",
+    "slug": "gura",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "scheme": "gura",
+    "userInterfaceStyle": "light",
+    "backgroundColor": "#FAF6F1",
+    "icon": "./assets/icon.png",
+    "splash": {
+      "backgroundColor": "#0F0E17",
+      "resizeMode": "contain"
+    },
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.gura.marketplace"
+    },
+    "android": {
+      "adaptiveIcon": {
+        "backgroundColor": "#FF5A1F"
+      },
+      "package": "com.gura.marketplace"
+    },
+    "web": {
+      "bundler": "metro",
+      "output": "static"
+    },
+    "plugins": [
+      "expo-router"
+    ],
+    "experiments": {
+      "typedRoutes": true
+    }
+  }
+}

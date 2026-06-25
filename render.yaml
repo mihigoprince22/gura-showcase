@@ -1,0 +1,41 @@
+services:
+  - type: web
+    name: gura-backend
+    env: node
+    rootDir: backend
+    buildCommand: npm install && npm run build
+    startCommand: npm run start
+    envVars:
+      - key: NODE_VERSION
+        value: 20.x
+      - key: DATABASE_URL
+        sync: false # You will enter this from Neon.tech in the Render dashboard
+      - key: REDIS_URL
+        sync: false # You will enter this from Upstash in the Render dashboard
+      - key: JWT_SECRET
+        generateValue: true
+      - key: TYPESENSE_API_KEY
+        fromService:
+          type: web
+          name: gura-typesense
+          envVarKey: TYPESENSE_API_KEY
+      - key: TYPESENSE_URL
+        fromService:
+          type: web
+          name: gura-typesense
+          envVarKey: RENDER_EXTERNAL_URL
+          
+  - type: web
+    name: gura-typesense
+    env: image
+    image:
+      url: docker.io/typesense/typesense:26.0
+    envVars:
+      - key: TYPESENSE_DATA_DIR
+        value: /tmp/typesense-data
+      - key: TYPESENSE_API_KEY
+        generateValue: true
+      - key: TYPESENSE_API_PORT
+        value: "10000"
+      - key: PORT
+        value: "10000"
